@@ -1,0 +1,35 @@
+{
+  "name": "telegram_bot",
+  "version": "1.0.0",
+  "description": "Telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "make-model": "sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,telegramId:string",
+    "migrate": "npx sequelize-cli db:migrate",
+    "make-seed": "npx sequelize-cli seed:generate --name init",
+    "seed": "npx sequelize-cli db:seed:all",
+    "down": "npx sequelize-cli db:migrate:undo",
+    "lint:fix": "eslint --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --require dotenv/config src/index.js"
+  },
+  "author": "Abul",
+  "type": "commonjs",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "mongoose": "^6.8.1",
+    "mysql2": "^2.3.3",
+    "node-telegram-bot-api": "^0.60.0",
+    "prettier": "^2.8.1",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2"
+  }
+}
