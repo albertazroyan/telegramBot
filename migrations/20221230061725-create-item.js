@@ -3,25 +3,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Items', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
+      listId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Lists',
+          key: 'id',
+          allowNull: false,
+        },
       },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      telegramId: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       createdAt: {
         allowNull: false,
@@ -32,10 +31,8 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-
   },
   async down (queryInterface, Sequelize) {
-    // we can do this because it is the first migration
-    await queryInterface.dropAllTables()
+    await queryInterface.dropTable('Items')
   }
 }

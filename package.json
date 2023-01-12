@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint",
-    "make-model": "sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,telegramId:string",
+    "make-model": "sequelize-cli model:generate --name Users --attributes firstName:string,lastName:string,telegramId:string",
     "migrate": "npx sequelize-cli db:migrate",
     "make-seed": "npx sequelize-cli seed:generate --name init",
     "seed": "npx sequelize-cli db:seed:all",
@@ -15,7 +15,7 @@
     "dev": "nodemon --require dotenv/config src/index.js"
   },
   "author": "Abul",
-  "type": "commonjs",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",

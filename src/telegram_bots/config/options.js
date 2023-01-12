@@ -34,6 +34,5 @@ export const startText = {
       [LIST_MANU_ROUTE]
     ],
     resize_keyboard: true
-    // one_time_keyboard: true,
   })
 }

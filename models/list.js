@@ -1,12 +1,9 @@
 // eslint-disable-next-line strict
 'use strict'
-
-const {
-  Model
-} = require('sequelize')
+const { Model } = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class List extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -16,19 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
+  List.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
     },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    telegramId: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -42,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'List',
   })
-  return User
+  return List
 }

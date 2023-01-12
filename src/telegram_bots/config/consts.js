@@ -9,6 +9,7 @@ export const HELP_USER = '/help'
 
 export const DB_NAME_USER = 'user'
 export const DB_NAME_LIST = 'list'
+export const DB_NAME_ITEM = 'item'
 
 export const _messageTypes = {
   message: 'message',
@@ -59,12 +60,15 @@ export const HelpHtmlText =`
   <strong>դիտել ամբողջ ցուցակը: ${VIEW_ALL_LIST}</strong>
 `
 
+export const deviceHtml = { parse_mode: 'HTML' }
+
 // description for the entire bot
 export const title = {
   start_text: 'Ընտրեք Menu-ից',
   strat_main_manu: 'սկսեք օգտագործել բոտը/գնացեք հիմնական մենյու',
   help: 'բաց օգնություն',
   basket: 'զամբյուղ',
+  added_new_list: 'ավելացել է նոր ցուցակ',
   add_llist_description: 'մուտքագրեք ձեր ընտրած <b> անունը՝</b> նոր ցուցակ ստեղծելու համար',
   list_type: 'մուտքագրեք ցուցակի տեսակը',
   chooseOption: 'ընտրեք նշված տարբերակներից մեկը',
