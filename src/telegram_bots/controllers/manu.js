@@ -1,6 +1,6 @@
 import { title, list_demo, startText, createManu, createList, HelpHtmlText, deviceHtml } from '../config/index.js'
 import { User, List } from '../models/index.js'
-import { takeWholeList, updateOrCreate, findeID } from '../helpers/index.js'
+import { takeWholeList, updateOrCreate, findID } from '../helpers/index.js'
 
 export const startBotMessage = async (bot, chatId, message) => {
 
@@ -30,6 +30,10 @@ export const addNewList = (bot, chatId) => {
   return bot.sendMessage(chatId, title.add_llist_description, createList)
 }
 
+export const addNewItem = (bot, chatId) => {
+  return bot.sendMessage(chatId, title.add_item_description, createList)
+}
+
 export const todoList = (bot, chatId) => {
   if (list_demo.length === 0) {
     return bot.sendMessage(chatId, title.emptyBasket, { deviceHtml })
@@ -43,12 +47,12 @@ export const viewAllList = async (bot, chatId) => {
     where: { telegramId: chatId }
   }
 
-  await findeID(User, where)
+  await findID(User, where)
     .then(async res => {
       const lists = await List.findAll({ where: { userId: res } })
 
       if (!lists) return bot.sendMessage(chatId, title.emptyBasket, { deviceHtml })
-      
+
       return bot.sendMessage(chatId, title.chooseOption, takeWholeList(lists))
     })
 }

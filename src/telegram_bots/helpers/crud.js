@@ -25,7 +25,7 @@ export const updateOrCreate = async (model, newItem, where) => {
 }
 
 // the function helps find id
-export const findeID = async (model, where) => {
+export const findID = async (model, where) => {
   // First try to find the record
   const findeItem = await model.findOne(where)
 

@@ -1,12 +1,13 @@
 import { title, deviceHtml } from '../config/index.js'
 import { Item } from '../models/index.js'
+import { takeWholeList } from '../helpers/index.js'
 
 export const filterSelectedItem = async (chatId, id, bot) => {
 
-  const item = await Item.findOne({ where: { listId: id } })
+  const list = await Item.findAll({ where: { listId: id } })
+  
+  if (!list.length) return bot.sendMessage(chatId, title.emptyBasket, deviceHtml)
 
-  if (!item) return bot.sendMessage(chatId, title.emptyBasket, { deviceHtml })
-
-  console.log('item', item)
+  return bot.sendMessage(chatId, title.chooseOption, takeWholeList(list))
 
 }
