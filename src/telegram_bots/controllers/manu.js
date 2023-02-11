@@ -1,6 +1,7 @@
 import { title, list_demo, startText, createManu, createList, HelpHtmlText, deviceHtml } from '../config/index.js'
-import { User, List } from '../models/index.js'
+import { User, List, Item } from '../models/index.js'
 import { takeWholeList, updateOrCreate, findID } from '../helpers/index.js'
+import session from 'express-session'
 
 export const startBotMessage = async (bot, chatId, message) => {
 
@@ -23,7 +24,7 @@ export const startBotMessage = async (bot, chatId, message) => {
 }
 
 export const createListMessage = (bot, chatId) => {
-  return bot.sendMessage(chatId, title.chooseOption, createManu)
+  return bot.sendMessage(chatId, title.choose_option, createManu)
 }
 
 export const addNewList = (bot, chatId) => {
@@ -36,9 +37,9 @@ export const addNewItem = (bot, chatId) => {
 
 export const todoList = (bot, chatId) => {
   if (list_demo.length === 0) {
-    return bot.sendMessage(chatId, title.emptyBasket, { deviceHtml })
+    return bot.sendMessage(chatId, title.empty_basket, { deviceHtml })
   }
-  return bot.sendMessage(chatId, title.chooseOption, takeWholeList(list_demo))
+  return bot.sendMessage(chatId, title.choose_option, takeWholeList(list_demo))
 }
 
 export const viewAllList = async (bot, chatId) => {
@@ -51,9 +52,35 @@ export const viewAllList = async (bot, chatId) => {
     .then(async res => {
       const lists = await List.findAll({ where: { userId: res } })
 
-      if (!lists) return bot.sendMessage(chatId, title.emptyBasket, { deviceHtml })
+      if (!lists) return bot.sendMessage(chatId, title.empty_basket, { deviceHtml })
 
-      return bot.sendMessage(chatId, title.chooseOption, takeWholeList(lists))
+      return bot.sendMessage(chatId, title.choose_option, takeWholeList(lists))
+    })
+}
+
+export const viewAllItems = async (bot, chatId) => {
+  
+  if (session.session.id) {
+    const lists = await Item.findAll({ where: { listID: session.session.id } })
+
+    console.warn('get all items from the specifies list:', lists)
+  
+  }
+
+}
+
+export const deleteAllList = async (bot, chatId) => {
+
+  const where = {
+    where: { telegramId: chatId }
+  }
+ 
+  await findID(User, where)
+    .then(async res => {
+      console.warn('all userId should be deleted', `userID: ${res}`)
+      
+      // const lists = await List.destroy({ where: { id: res } })
+      
     })
 }
 
@@ -61,5 +88,5 @@ export const helpUser = (bot, chatId) => {
   if (list_demo.length === 0) {
     return bot.sendMessage(chatId, HelpHtmlText, { parse_mode: 'HTML' })
   }
-  return bot.sendMessage(chatId, title.chooseOption, takeWholeList(list_demo))
+  return bot.sendMessage(chatId, title.choose_option, takeWholeList(list_demo))
 }

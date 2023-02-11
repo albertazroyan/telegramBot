@@ -5,7 +5,8 @@ export const ADD_NEW_LIST = '/ավելացնել նոր ցուցակ \u{1F4DD}'
 export const ADD_NEW_ITEM = '/ստեղծել ցուցակի տարր \u{1F4DD}'
 export const LIST_MANU_ROUTE = '/ցուցակ \u{1F4DC}'
 export const VIEW_ALL_LIST = '/դիտել ամբողջ ցուցակը \u{1F4D2}'
-export const VIEW_ALL_ITEMS = '/դիտել ցուցակի ամբողջ տարրերը \u{1F4D2}'
+export const DELETE_ALL_LIST = '/Ջնջել բոլոր ցուցակները \u{274C}'
+export const VIEW_ALL_ITEMS = '/դիտել տվյալ ցուցակի ամբողջ տարրերը \u{1F4D2}'
 export const BACK_HOME_PAGE = '/Վերադառնալ ԳԼԽԱՎՈՐ ԷՋ \u{1F3E0}'
 export const HELP_USER = '/help'
 
@@ -71,11 +72,12 @@ export const title = {
   help: 'բաց օգնություն',
   basket: 'զամբյուղ',
   added_new_list: 'ավելացել է նոր ցուցակ',
-  add_llist_description: 'մուտքագրեք ձեր ընտրած <b> անունը՝</b> նոր ցուցակ ստեղծելու համար',
-  add_item_description: 'մուտքագրեք ձեր ընտրած <b> անունը՝</b> նոր ցուցակի տարր ստեղծելու համար',
+  added_new_item: 'դուք ստեղծել եք ցուցակի նոր տարր նշված անունով',
+  add_llist_description: 'մուտքագրեք ձեր նախընտրած անունը՝ նոր ցուցակ ստեղծելու համար',
+  add_item_description: 'մուտքագրեք ձեր նախընտրած անունը՝ նոր ցուցակի տարր ստեղծելու համար',
   list_type: 'մուտքագրեք ցուցակի տեսակը',
-  chooseOption: 'ընտրեք նշված տարբերակներից մեկը',
-  emptyBasket: '<b>Ձեր զամբյուղը դատարկ է: Խնդրում ենք ընտրել և ավելացնել:</b>'
+  choose_option: 'ընտրեք նշված ցուցակներից մեկը',
+  empty_basket: 'Ձեր ցուցակը դատարկ է: Խնդրում ենք ընտրել - <b> /ստեղծել ցուցակի տարր </b> նոր տարր  ստեղծելու համար.'
 }
 
 // main meny routes

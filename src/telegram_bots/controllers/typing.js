@@ -1,6 +1,7 @@
 import { List, User, Item } from '../models/index.js'
 import { findID, updateOrCreate } from '../helpers/crud.js'
 import { deviceHtml, title } from '../config/index.js'
+import session from 'express-session'
 
 export const newlist = (bot, chatId, text) => {
 
@@ -24,25 +25,19 @@ export const newlist = (bot, chatId, text) => {
   
 }
 
-export const newItem = (bot, chatId, text) => {
+export const newItem = async (bot, chatId, text) => {
+  const { id } = session.session
 
-  const where = {
-    where: { userId: 2 }
+  if (text) {
+    await Item.create({ name: text, listId: id })
+      .then(res => {
+        const { dataValues } = res
+
+        return bot.sendMessage(chatId, `${title.added_new_item}: <b> ${dataValues.name} </b>`, deviceHtml)
+
+      }).catch((error) => {
+        console.error('Failed to create a new record:', error)
+      })
   }
-
-  findID(List, where).then(res => {
-
-    if (text) {
-      updateOrCreate(Item, { name: text, listId: res })
-        .then(res => {
-          const { dataValues } = res.item
-
-          return bot.sendMessage(chatId, `${title.added_new_list} /${dataValues.name}`, deviceHtml)
-        }).catch((error) => {
-          console.error('Failed to create a new record:', error)
-        })
-    }
-  })
-    .catch(err => console.log(`can not find data: ${err}`))
-  
+ 
 }

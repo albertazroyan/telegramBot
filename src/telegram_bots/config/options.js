@@ -3,6 +3,7 @@ import {
   CREATE_MANU_ROUTE,
   ADD_NEW_LIST,
   VIEW_ALL_LIST,
+  DELETE_ALL_LIST,
   VIEW_ALL_ITEMS,
   BACK_HOME_PAGE,
   ADD_NEW_ITEM
@@ -11,8 +12,8 @@ import {
 export const createManu = {
   reply_markup: JSON.stringify({
     keyboard: [
-      [ADD_NEW_LIST],
-      [VIEW_ALL_LIST],
+      [ADD_NEW_LIST, VIEW_ALL_LIST],
+      [DELETE_ALL_LIST],
       [BACK_HOME_PAGE]
     ],
     resize_keyboard: true
@@ -30,14 +31,15 @@ export const createList = {
 }
 
 export const createItem = {
-  reply_markup: JSON.stringify({
+  reply_markup: {
     keyboard: [
-      [ADD_NEW_ITEM],
-      [VIEW_ALL_ITEMS],
-      [BACK_HOME_PAGE]
+      [{ text: ADD_NEW_ITEM, callback_data: '1000' , hide_keyboard: true } , VIEW_ALL_ITEMS],
+      [BACK_HOME_PAGE],
     ],
+    one_time_keyboard: true,
     resize_keyboard: true
-  })
+  },
+  parse_mode: 'HTML'
 }
 
 export const startText = {

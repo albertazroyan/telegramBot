@@ -16,7 +16,8 @@ export const updateOrCreate = async (model, newItem, where) => {
 
     return { item, created: false }
   }
-
+  
+  console.log('newItem', item)
   // Item not found, create a new one
   const item = await model.create(newItem)
 
