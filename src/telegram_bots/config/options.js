@@ -1,3 +1,4 @@
+// Import constants related to routes and options from the configuration file
 import {
   LIST_MANU_ROUTE,
   CREATE_MANU_ROUTE,
@@ -9,6 +10,7 @@ import {
   ADD_NEW_ITEM
 } from '../config/index.js'
 
+// Keyboard layout object for the "createManu" reply markup, which includes options related to adding, viewing, and deleting lists.
 export const createManu = {
   reply_markup: JSON.stringify({
     keyboard: [
@@ -20,6 +22,7 @@ export const createManu = {
   })
 }
 
+// Keyboard layout object for the "createList" reply markup, which includes options related to viewing lists and going back to the home page.
 export const createList = {
   reply_markup: JSON.stringify({
     keyboard: [
@@ -30,6 +33,7 @@ export const createList = {
   })
 }
 
+// Keyboard layout object for the "createItem" reply markup, which includes options related to adding new items, viewing all items, and going back to the home page.
 export const createItem = {
   reply_markup: {
     keyboard: [
@@ -42,6 +46,7 @@ export const createItem = {
   parse_mode: 'HTML'
 }
 
+// Keyboard layout object for the "startText" reply markup, which includes options for creating a menu or viewing an existing menu.
 export const startText = {
   reply_markup: JSON.stringify({
     keyboard: [

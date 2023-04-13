@@ -24,6 +24,8 @@ app.use(session({
   }
 }))
 
+// console.log('session', session.session = {name: 'sss'})
+
 const port = process.env.PORT || 8080
 
 app.listen(port, (error) => {
