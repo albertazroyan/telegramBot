@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize'
-import { sequelize } from '../../database/connection.js'
+import { sequelize } from '../../database/db.js'
 import { DB_NAME_ITEM } from '../config/index.js'
 
 // Define a new model for the "Item" table, using Sequelize's "define" method

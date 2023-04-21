@@ -3,10 +3,10 @@
  */
 
 import { findID, updateOrCreate } from './crud.js'
-import { takeWholeList } from './list.js'
+import { createInlineKeyboard } from './list.js'
 
 export {
   findID,
   updateOrCreate,
-  takeWholeList
+  createInlineKeyboard
 }

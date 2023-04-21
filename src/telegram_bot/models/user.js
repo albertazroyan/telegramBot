@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize'
-import { sequelize } from '../../database/connection.js'
+import { sequelize } from '../../database/db.js'
 import { DB_NAME_USER } from '../config/index.js'
 
 /**

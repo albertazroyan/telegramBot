@@ -11,7 +11,7 @@ import {
 } from '../config/index.js'
 
 // Keyboard layout object for the "createManu" reply markup, which includes options related to adding, viewing, and deleting lists.
-export const createManu = {
+export const createMenuKeyboardLayout = {
   reply_markup: JSON.stringify({
     keyboard: [
       [ADD_NEW_LIST, VIEW_ALL_LIST],
@@ -23,7 +23,7 @@ export const createManu = {
 }
 
 // Keyboard layout object for the "createList" reply markup, which includes options related to viewing lists and going back to the home page.
-export const createList = {
+export const createListKeyboardLayout = {
   reply_markup: JSON.stringify({
     keyboard: [
       [VIEW_ALL_LIST],
@@ -34,7 +34,7 @@ export const createList = {
 }
 
 // Keyboard layout object for the "createItem" reply markup, which includes options related to adding new items, viewing all items, and going back to the home page.
-export const createItem = {
+export const createItemKeyboardLayout = {
   reply_markup: {
     keyboard: [
       [{ text: ADD_NEW_ITEM, callback_data: '1000' , hide_keyboard: true } , VIEW_ALL_ITEMS],
@@ -47,7 +47,7 @@ export const createItem = {
 }
 
 // Keyboard layout object for the "startText" reply markup, which includes options for creating a menu or viewing an existing menu.
-export const startText = {
+export const startTextKeyboardLayout = {
   reply_markup: JSON.stringify({
     keyboard: [
       [CREATE_MANU_ROUTE],
