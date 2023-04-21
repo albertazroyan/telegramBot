@@ -1,10 +1,11 @@
 
 // the function helps to add or update data in the database
 export const updateOrCreate = async (model, newItem, where) => {
+  
   // First try to find the record
   if (where) {
     const foundItem = await model.findOne({ ...where })
-
+   
     if (!foundItem) {
       // Item not found, create a new one
       const item = await model.create(newItem)
@@ -13,11 +14,10 @@ export const updateOrCreate = async (model, newItem, where) => {
     }
     // Found an item, update it
     const item = await model.update(newItem, { ...where })
-
+    
     return { item, created: false }
   }
   
-  console.log('newItem', item)
   // Item not found, create a new one
   const item = await model.create(newItem)
 

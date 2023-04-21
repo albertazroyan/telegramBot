@@ -3,6 +3,7 @@ import { findID, updateOrCreate } from '../helpers/crud.js'
 import { deviceHtml, title } from '../config/index.js'
 import session from 'express-session'
 
+// create new List
 export const newlist = (bot, chatId, text) => {
 
   const where = {
@@ -29,6 +30,7 @@ export const newlist = (bot, chatId, text) => {
   
 }
 
+// create new Item
 export const newItem = async (bot, chatId, text) => {
   const { id } = session.session
 

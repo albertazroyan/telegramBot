@@ -76,12 +76,14 @@ export const viewAllList = async (bot, chatId) => {
 
 // Function to display all of the items in a list
 export const viewAllItems = async (bot, chatId) => {
-  console.log('session.session.id', session.session.id)
-  if (session.session.id) {
+
+  if (session.session) {
     // Find all of the items in the list
     const lists = await Item.findAll({ where: { listID: session.session.id } })
 
-    console.warn('get all items from the specifies list:', lists)
+    console.log('list', lists)
+    // console.warn('get all items from the specifies list:', lists)
+    return bot.sendMessage(chatId, title.item_title, takeWholeList(lists))
   
   }
 

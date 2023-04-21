@@ -8,7 +8,7 @@ export const filterSelectedItem = async (chatId, bot, id) => {
   
   // Use Sequelize to query the database for all items where the "listEd" property matches the "id" parameter.
   const list = await Item.findAll({ where: { listId: id } })
-  
+
   // Set the session data to an object with the "id" property equal to the "id" parameter. 
   session.session = { id: id }
   
@@ -19,6 +19,6 @@ export const filterSelectedItem = async (chatId, bot, id) => {
   bot.sendMessage(chatId, title.empty_basket, createItem)
   
   // Send a message to the chat with the "choose_option" title and pass the "list" array to the "takeWholeList" function, which likely formats the list for display in the message.
-  return bot.sendMessage(chatId, title.choose_option, takeWholeList(list))
+  return bot.sendMessage(chatId, title.item_title, takeWholeList(list))
 
 }

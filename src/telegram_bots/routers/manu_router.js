@@ -7,8 +7,8 @@ import typingRouter from './typing_router.js'
 // keep track of where the user is in the menu
 let routerLocation = ''
 
-// define handlers for menu routes
-const handleRouter = {
+// define constants for routes and router locations
+const ROUTES = {
   [START_ROUTE]: manu.startBotMessage,
   [CREATE_MANU_ROUTE]: manu.createListMessage,
   [LIST_MANU_ROUTE]: manu.viewAllList,
@@ -21,19 +21,18 @@ const handleRouter = {
   [HELP_USER]: manu.helpUser
 }
 
-// handle menu messages
+// const values = Object.keys(ROUTES)
+
 export const menuMessage = (message) => {
   const text = message.text
   const chatId = message.from.id
 
-  console.warn('routerLocationthe currently running route:', routerLocation)
-
   try {
     // if the message contains a valid route command, change the router location and execute the handler for that command
-    if (text.includes('/')) {
-
+    if (ROUTES[text]) {
+     
       routerLocation = text
-      return handleRouter[text](bot, chatId, message)
+      return ROUTES[text](bot, chatId, message)
     }
     
     // if the message doesn't contain a valid route command, execute the handler for the current router location
@@ -43,3 +42,5 @@ export const menuMessage = (message) => {
     bot.sendMessage(chatId, title.basket, takeWholeList(list_demo))
   }
 }
+
+export default menuMessage
