@@ -1,6 +1,6 @@
 import { List, User, Item } from '../models/index.js'
 import { findID, updateOrCreate } from '../helpers/crud.js'
-import { deviceHtml, title } from '../config/index.js'
+import { deviceHtml, title, VIEW_ALL_LIST } from '../config/index.js'
 import session from 'express-session'
 
 // create new List
@@ -22,28 +22,30 @@ export const newlist = async (bot, chatId, text) => {
     const res = await updateOrCreate(List, { name: text, userId })
 
     const { dataValues } = res.item
-
+    
+    console.log('data', dataValues)
     // Send success message with added list name
-    return bot.sendMessage(chatId, `${title.added_new_list} /${dataValues.name}`, deviceHtml)
+    return bot.sendMessage(chatId, `${title.list_created_success} <b>/${VIEW_ALL_LIST}</b>`, deviceHtml)
   } catch (error) {
-    console.error('Failed to create a new record:', error)
     return bot.sendMessage(chatId, 'An error occurred while creating the list')
   }
 }
 
-// create new Item
 export const newItem = async (bot, chatId, text) => {
-  const { listId } = session.session
+  if (!text || !session.session) {
+    return bot.sendMessage(chatId, 'Invalid input', deviceHtml)
+  }
 
-  if (text) {
-    try {
-      // Create a new item with provided text and list ID
-      const { dataValues } = await Item.create({ name: text, listId })
+  try {
+    const { id: listId } = session.session
 
-      // Send success message with added item name
-      return bot.sendMessage(chatId, `${title.added_new_item}: <b>${dataValues.name}</b>`, deviceHtml)
-    } catch (error) {
-      console.error('Failed to create a new record:', error)
-    }
+    const newItem = { name: text, listId }
+    const res = await Item.create(newItem)
+    const { name } = res.dataValues
+
+    return bot.sendMessage(chatId, `${title.item_added_success}: <b>${name}</b>`, deviceHtml)
+  } catch (error) {
+    console.error('Failed to create a new record:', error)
+    return bot.sendMessage(chatId, 'Failed to create a new item', deviceHtml)
   }
 }

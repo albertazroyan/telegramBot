@@ -1,5 +1,13 @@
 // Importing necessary modules and variables from other files
-import { title, list_demo, startTextKeyboardLayout, createMenuKeyboardLayout, createListKeyboardLayout, HelpHtmlText, deviceHtml } from '../config/index.js'
+import {
+  title,
+  startTextKeyboardLayout,
+  createMenuKeyboardLayout,
+  createListKeyboardLayout,
+  createItemKeyboardLayout,
+  HelpHtmlText,
+  deviceHtml
+} from '../config/index.js'
 import { User, List, Item } from '../models/index.js'
 import { createInlineKeyboard, updateOrCreate, findID } from '../helpers/index.js'
 import session from 'express-session'
@@ -19,38 +27,9 @@ export const startBotMessage = async (bot, chatId, message) => {
 
   try {
     await updateOrCreate(User, user_schema, where)
-    await bot.sendMessage(chatId, title.start_text, startTextKeyboardLayout)
+    await bot.sendMessage(chatId, title.menu_instructions, startTextKeyboardLayout)
   } catch (error) {
     console.error('Failed to create a new record:', error)
-  }
-}
-
-// Function to prompt the user to choose an option for creating a new list
-export const createListMessage = (bot, chatId) => {
-  return bot.sendMessage(chatId, title.choose_option, createMenuKeyboardLayout)
-}
-
-// Function to prompt the user to add a new list
-export const addNewList = (bot, chatId) => {
-  return bot.sendMessage(chatId, title.add_llist_description, createListKeyboardLayout)
-}
-
-// Function to prompt the user to add a new item to a list
-export const addNewItem = (bot, chatId) => {
-  return bot.sendMessage(chatId, title.add_item_description, createListKeyboardLayout)
-}
-
-// Function to display the user's todo list
-export const todoList = async (bot, chatId) => {
-  try {
-    // If there are no items in the list, display a message indicating that the list is empty
-    if (list_demo.length === 0) {
-      return bot.sendMessage(chatId, title.empty_basket, { deviceHtml })
-    }
-    // Display the user's todo list
-    await bot.sendMessage(chatId, title.choose_option, createInlineKeyboard(list_demo))
-  } catch (error) {
-    console.error('Failed to display todo list:', error)
   }
 }
 
@@ -65,49 +44,119 @@ export const viewAllList = async (bot, chatId) => {
     const lists = await List.findAll({ where: { userId: id } })
     
     // If there are no lists associated with the user, display a message indicating that the list is empty
-    if (!lists) return bot.sendMessage(chatId, title.empty_basket, { deviceHtml })
+    if (!lists) return bot.sendMessage(chatId, title.empty_cart_message, { deviceHtml })
      
     // Display all of the user's lists
-    await bot.sendMessage(chatId, title.choose_option, createInlineKeyboard(lists))
+    await bot.sendMessage(chatId, title.list_selector_label, createInlineKeyboard(lists))
   } catch (error) {
     console.error('Failed to display all lists:', error)
   }
 }
 
-// Function to display all of the items in a list
+// This function displays all of the items in a list
 export const viewAllItems = async (bot, chatId) => {
+  // Get the active list from the session
+  const list = session.session
 
-  if (session.session) {
-    // Find all of the items in the list
-    const lists = await Item.findAll({ where: { listID: session.session.id } })
-
-    console.log('list', lists)
-    // console.warn('get all items from the specifies list:', lists)
-    return bot.sendMessage(chatId, title.item_title, createInlineKeyboard(lists))
-  
+  // If no active list is found, log a message and return
+  if (!list) {
+    console.log('No active session found')
+    return
   }
 
+  try {
+    // Find all items in the active list
+    const items = await Item.findAll({ where: { listID: list.id } })
+
+    // If no items are found, send a message to the user and return
+    if (!items || !items.length) {
+      await bot.sendMessage(chatId, title.empty_cart_message, { deviceHtml })
+      return
+    }
+
+    // Send a message to the user with the list of items
+    return bot.sendMessage(chatId, title.list_items_label, createInlineKeyboard(items))
+    
+  } catch (err) {
+    // If an error occurs, log the error and send a message to the user
+    console.error(err)
+    await bot.sendMessage(chatId, 'An error occurred while retrieving items from the list')
+  }
 }
 
-export const deleteAllList = async (bot, chatId) => {
-  
-  // create a where object to find the user by telegramId
-  const where = {
-    where: { telegramId: chatId }
-  }
- 
-  await findID(User, where)
-    .then(async res => {
-      console.warn('all userId should be deleted', `userID: ${res}`)
-      
-      // const lists = await List.destroy({ where: { id: res } })
-      
+export const deleteAllItems = async (bot, chatId) => {
+  try {
+    // Find the user based on their Telegram ID
+    const user = await User.findOne({ where: { telegramId: chatId } })
+
+    if (!user) {
+      console.log(`User with telegramId ${chatId} not found.`)
+      return
+    }
+
+    // Find the list belonging to the user that is currently active in the session
+    const list = await List.findOne({
+      where: {
+        userId: user.id,
+        id: session.session?.id // Use optional chaining to safely access session.session.id
+      }
     })
+
+    if (!list) {
+      console.log(`List not found for user with telegramId ${chatId} and list ID ${session.session?.id}.`)
+      return
+    }
+
+    // Delete all items associated with the list
+    await Item.destroy({ where: { listId: list.id } })
+   
+    return bot.sendMessage(chatId, `<b>${list.name}</b> ${title.items_deleted_successfully}`, createItemKeyboardLayout)
+
+  } catch (error) {
+    console.error('An error occurred:', error)
+  }
 }
+
+// export const deleteAllList = async (bot, chatId) => {
+  
+//   // create a where object to find the user by telegramId
+//   const where = { telegramId: chatId }
+ 
+//   // find the user using the where object
+//   const user = await User.findOne({ where })
+
+//   console.log('user', user.dataValues.id)
+//   // if the user is found, remove all of their lists and items
+//   if (user && user.dataValues.id) {
+//     await List.destroy({ where: { userId:  user.dataValues.id } })
+    
+//     // console.log('user', users)
+//     // console.log('All lists deleted for user:', user.id)
+
+//     // await Item.destroy({ where: { userId: user.id } })
+//     // console.log('All items deleted for user:', List.id)
+
+//     // // finally, remove the user
+//     // await user.destroy()
+//     // console.log('User deleted:', user.id)
+//   }
+// }
 
 export const helpUser = (bot, chatId) => {
-  if (list_demo.length === 0) {
-    return bot.sendMessage(chatId, HelpHtmlText, { parse_mode: 'HTML' })
-  }
-  return bot.sendMessage(chatId, title.choose_option, createInlineKeyboard(list_demo))
+  return bot.sendMessage(chatId, HelpHtmlText, { parse_mode: 'HTML' })
+}
+
+// Function to prompt the user to choose an option for creating a new list
+export const createListMessage = (bot, chatId) => {
+  return bot.sendMessage(chatId, title.menu_option_selector_label, createMenuKeyboardLayout)
+}
+
+// Function to prompt the user to add a new list
+export const addNewList = (bot, chatId) => {
+  return bot.sendMessage(chatId, title.new_list_placeholde, createListKeyboardLayout)
+}
+
+// Function to prompt the user to add a new item to a list
+export const addNewItem = (bot, chatId) => {
+  return bot.sendMessage(chatId, title.new_item_placeholder, createListKeyboardLayout)
 }

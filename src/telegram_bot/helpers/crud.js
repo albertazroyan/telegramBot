@@ -1,28 +1,17 @@
 
-// the function helps to add or update data in the database
-export const updateOrCreate = async (model, newItem, where) => {
-  
-  // First try to find the record
-  if (where) {
-    const foundItem = await model.findOne({ ...where })
-   
-    if (!foundItem) {
-      // Item not found, create a new one
-      const item = await model.create(newItem)
+// This function adds or updates data in the database
+export const updateOrCreate = async (model, newItem, filter) => {
+  try {
+    // Try to find the record that matches the filter
+    const [item, created] = await model.upsert(newItem, { where: filter })
 
-      return { item, created: true }
-    }
-    // Found an item, update it
-    const item = await model.update(newItem, { ...where })
-    
-    return { item, created: false }
+    // Return the item and a flag indicating whether it was created or updated
+    return { item, created }
+  } catch (err) {
+    // If an error occurs, log the error and return null
+    console.error(err)
+    return null
   }
-  
-  // Item not found, create a new one
-  const item = await model.create(newItem)
-
-  return { item, created: true }
-
 }
 
 // the function helps find id

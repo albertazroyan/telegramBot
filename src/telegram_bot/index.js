@@ -1,6 +1,6 @@
 import { bot, _messageTypes, main_manu } from './config/index.js'
-import  handleUserInput from './routers/bot-router.js'
-import handleCallBack from './routers/user-input-handler.js'
+import  handleUserInput from './routers/user-input-handler.js'
+import handleCallBack from './routers/call-back-router.js'
 
 // function helps start start bot
 export const startBot = () =>  {
