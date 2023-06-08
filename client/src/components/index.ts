@@ -1,0 +1,1 @@
+export { default as SupportOrderPanel } from './local/organisms/order-setup'

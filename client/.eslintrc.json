@@ -1,0 +1,66 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 14,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "comma-dangle": ["error", "only-multiline"],
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-unused-vars": [2, {
+            "args": "none"
+          }],
+        "react/jsx-uses-react": 1,
+        "react/jsx-uses-vars": 1, // Treats component names as used variables in JSX/TSX files
+        "no-constant-condition": 2,
+        "no-duplicate-case": 2,
+        "no-useless-constructor": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "semi": [2, "never"],
+        "require-yield": 0,
+        "strict": ["error", "global"],
+        "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
+        "quotes": ["error", "single", { "avoidEscape": true } ],
+        "space-before-function-paren": [2, "always"],   
+        "array-bracket-newline": 0,
+        "array-bracket-spacing": [ 2, "never" ],
+        "object-curly-spacing": [ 2, "always" ],
+        "newline-after-var": [ 2, "always" ],
+        "space-in-parens": [ 2, "never" ],
+        "block-spacing": 0,
+        "keyword-spacing": ["error", { "after": true, "before": true }],
+        "max-lines": ["error", {"max": 1000, "skipBlankLines": false}],
+        "no-trailing-spaces": ["error", { "skipBlankLines": true, "ignoreComments": true }],
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+        
+        "indent": ["error", 2],
+        "spaced-comment": ["error", "always", {
+            "line": {
+                "markers": ["/"],
+                "exceptions": ["-", "+"]
+            },
+            "block": {
+                "markers": ["!"],
+                "exceptions": ["*"],
+                "balanced": true
+            }
+        }]
+    }
+}
