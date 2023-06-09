@@ -30,9 +30,9 @@ const Card: React.FC<PropTypes> = ({ data, onAdd, onRemove, currency }) => {
       <div className={styles.image}>
         <img src={imgsrc} />
       </div>
-      <h4 className={styles.title}>
+      <span className={styles.title}>
         {title} . <span className={styles.price}> {price} {currency}</span>
-      </h4>
+      </span>
 
       <div className={styles.btnContainer}>
         <Button title={'+'} type={btnType.add} onClick={handleIncrement} />

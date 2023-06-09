@@ -20,7 +20,7 @@ const SupportOrderPanel: React.FC<PropTypes> = ({ onChangeCurrentTab }) => {
             data={data}/>
         </div>
 
-      },
+      }
       <div className={`${(currentTab !== OrderTabs.Order && styles.hide)}`}>
         {
           <ItemsPage
