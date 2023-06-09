@@ -9,7 +9,7 @@ const multipliedData: Array<card> = Array.from({ length: 100 }, () => ({
   weight: 220,
   description: 'Տեղական հավի մսից խորոված՝ կարտոֆիլով, սխտորի սոուսով և լավաշով։',
   imgsrc: 'https://cdn.foody.am/products/2022/08/24/1661321559.jpg.webp550',
-  price: '4,500 ֏',
+  price: '4500 ',
   quantity : 0,
   id: new Date().toISOString() + counter++
 }))

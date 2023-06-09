@@ -4,7 +4,7 @@ import { btnType } from '../../../../configs'
 import Button from '../../atoms/button'
 import styles from './styles.module.css'
 
-const Card: React.FC<PropTypes> = ({ data, onAdd, onRemove }) => {
+const Card: React.FC<PropTypes> = ({ data, onAdd, onRemove, currency }) => {
   const [count, setCount] = useState(0)
   const { title, imgsrc, price } = data
   
@@ -31,7 +31,7 @@ const Card: React.FC<PropTypes> = ({ data, onAdd, onRemove }) => {
         <img src={imgsrc} />
       </div>
       <h4 className={styles.title}>
-        {title} . <span className={styles.price}>$ {price}</span>
+        {title} . <span className={styles.price}> {price} {currency}</span>
       </h4>
 
       <div className={styles.btnContainer}>

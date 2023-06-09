@@ -1,0 +1,48 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 80%;
+    z-index: 3;
+    background: #fff;
+    padding: 10px;
+  }
+  
+  
+  .close {
+    cursor: pointer;
+  }
+
+  .header {
+    position: relative;
+    border-top-left-radius: var(--border-radius-default-small);
+    border-top-right-radius: var(--border-radius-default-small);
+    width: 100%;
+    padding: 0.5rem 1rem 0.25rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background: var(--color-background);
+  }
+
+  .header h3{
+    margin-left: 1.5rem;
+    unicode-bidi: plaintext;
+    text-align: initial;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, .7)
+  }
+  
+  .content {
+    margin-top: 40px;
+  }

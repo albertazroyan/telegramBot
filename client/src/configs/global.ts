@@ -3,3 +3,5 @@ export const serverPath = (
 ).replace(/\/?$/, '/')
   
 export const databasePath = `${serverPath}db/`
+
+export const AMD = '\u058F'

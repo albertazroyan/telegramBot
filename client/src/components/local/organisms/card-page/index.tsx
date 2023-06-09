@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Card from '../../molecules/order-card'
 import Button from '../../atoms/button'
 import { card } from '../../../../custom-types'
-import { OrderTabs, btnType } from '../../../../configs'
+import { AMD, OrderTabs, btnType } from '../../../../configs'
 import PropTypes from './types/props'
 import styles from './styles.module.css'
 
-const CardPage: React.FC<PropTypes> = ({
+const CardsPage: React.FC<PropTypes> = ({
   onChangeCurrentTab,
   data,
   orderData
@@ -33,8 +33,6 @@ const CardPage: React.FC<PropTypes> = ({
       setCardItems((prevCardItems) => [...prevCardItems, { ...food, quantity: 1 }])
     }
   }
-
-  console.log('cardItems', cardItems)
   
   const onRemove = (food: card) => {
     const existingIndex = cardItems.findIndex((x) => x.id === food.id)
@@ -71,6 +69,7 @@ const CardPage: React.FC<PropTypes> = ({
             <Card
               key={data.id}
               data={data}
+              currency={AMD}
               onAdd={onAdd}
               onRemove={onRemove}
             />
@@ -87,4 +86,4 @@ const CardPage: React.FC<PropTypes> = ({
   )
 }
 
-export default CardPage
+export default CardsPage

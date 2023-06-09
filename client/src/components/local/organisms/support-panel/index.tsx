@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react'
 import { OrderTabs } from '../../../../configs'
-import CardPage from '../card-page'
-import OrderList from '../order-list'
+import CardsPage from '../card-page'
+import ItemsPage from '../items-page'
 import PropTypes, { SupportOrderPanelContextInterface } from './types/props'
 import styles from './styles.module.css'
 
@@ -14,17 +14,16 @@ const SupportOrderPanel: React.FC<PropTypes> = ({ onChangeCurrentTab }) => {
     <div className='support_order_panel'>
       {
         <div className={`${(currentTab !== OrderTabs.Card && styles.hide)}`}>
-          {<CardPage
+          <CardsPage
             onChangeCurrentTab={onChangeCurrentTab}
             orderData={orderData}
             data={data}/>
-          }
         </div>
 
       },
       <div className={`${(currentTab !== OrderTabs.Order && styles.hide)}`}>
         {
-          <OrderList
+          <ItemsPage
             onChangeCurrentTab={onChangeCurrentTab}
             data={data}
             orderData={orderData}

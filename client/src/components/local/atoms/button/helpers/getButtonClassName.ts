@@ -8,6 +8,8 @@ const getButtonClassName = (type: string) => {
     return btnType.remove
   case btnType.view_order:
     return btnType.view_order
+  case btnType.pay:
+    return btnType.view_order
   default:
     return ''
   }

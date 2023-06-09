@@ -6,5 +6,6 @@ export enum OrderTabs {
 export enum btnType {
   add = 'add',
   remove = 'remove',
-  view_order = 'view_order'
+  view_order = 'view_order',
+  pay = 'pay'
 }

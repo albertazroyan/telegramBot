@@ -1,0 +1,45 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.photo {
+  width: 40px;
+  margin: 4px 0;
+  margin-right: 12px;
+}
+
+.photo img {
+  width: 100%;
+}
+
+.lable {
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 3px 0;  
+}
+
+.description {
+  font-size: 14px;
+  line-height: 17px;
+  -webkit-font-smoothing: antialiased;
+  color: #83878a;
+  padding: 2px 0;
+}
+
+.title span {
+  color: #f8a917;
+}
+
+.price {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  padding: 4px 0;
+}
